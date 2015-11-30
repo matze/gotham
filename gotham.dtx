@@ -1,0 +1,140 @@
+% \iffalse meta-comment
+% Copyright (C) 2015 by Matthias Vogelgesang
+%
+% This file may be distributed and/or modified under the
+%
+% conditions of the LaTeX Project Public License, either
+% version 1.3 of this license or (at your option) any later
+% version.  The latest version of this license is in:
+%
+%    http://www.latex-project.org/lppl.txt
+%
+% and version 1.3 or later is part of all distributions of
+% LaTeX version 2005/12/01 or later
+% \fi
+
+% \iffalse
+%<package>\NeedsTeXFormat{LaTeX2e}
+%<package>\ProvidesPackage{gotham}[2015/11/30 gotham]
+%<package>\RequirePackage{pgfplots}
+%
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage{gotham}
+\usepackage{multicol}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{gotham.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \GetFileInfo{gotham.sty}
+%
+% \title{Gotham plot styles}
+% \author{Matthias Vogelgesang\\ \texttt{matthias.vogelgesang@gmail.com}}
+%
+% \maketitle
+%
+% \section{Usage}
+%
+% \DescribeMacro{gotham/plot}%
+% \begin{multicols}{2}
+% This is the basis for all other plots.
+% \columnbreak
+% \begin{tikzpicture}
+%   \begin{axis}[gotham/plot, width=0.5\textwidth, height=4cm]
+%      \addplot{sin(deg(x))};
+%   \end{axis}
+% \end{tikzpicture}
+% \end{multicols}
+%
+% \DescribeMacro{gotham/line plot}%
+% \begin{multicols}{2}
+% This is the basis for all other plots.
+% \columnbreak
+% \begin{tikzpicture}
+%   \begin{axis}[gotham/line plot, width=0.5\textwidth, height=4cm]
+%      \addplot{sin(deg(x))};
+%   \end{axis}
+% \end{tikzpicture}
+% \end{multicols}
+%
+% \DescribeMacro{gotham/bar plot}%
+% \begin{multicols}{2}
+% This is the basis for all other plots.
+% \columnbreak
+% \begin{tikzpicture}
+%   \begin{axis}[gotham/bar plot, width=0.5\textwidth, height=4cm, bar %   width=2pt,]
+%      \addplot[red, samples=10]{abs(sin(deg(x)))};
+%      \addplot[blue, samples=10]{abs(cos(deg(2*x)))};
+%   \end{axis}
+% \end{tikzpicture}
+% \end{multicols}
+
+% \StopEventually{}
+
+\pgfplotsset{
+  gotham/legend/.style={
+    legend style={
+      draw=none,
+      fill=none,
+    }
+  },
+  gotham/plot/.style={
+    gotham/legend,
+    axis x line*=bottom,
+    tick align=outside,
+    x tick label style={
+      /pgf/number format/1000 sep=,
+    },
+    y tick label style={
+      /pgf/number format/1000 sep=,
+    },
+    ymajorgrids=true,
+    xmajorgrids=true,
+    major grid style={
+      dotted,
+    },
+  },
+  gotham/dot plot/.style={
+    gotham/plot,
+    axis y line*=left,
+    only marks,
+  },
+  gotham/line plot/.style={
+    gotham/plot,
+    axis y line*=left,
+  },
+  gotham/bar plot/.style={
+    gotham/plot,
+    axis y line*=none,
+    xmajorgrids=false,
+    ybar,
+    area legend,
+    legend image code/.code={
+      \draw[#1] (0cm,-0.1cm) rectangle (0.15cm,0.1cm);
+    },
+  },
+  gotham/horizontal bar plot/.style={
+    gotham/bar plot,
+    xbar stacked,
+  },
+  gotham/scatter plot/.style={
+    gotham/plot,
+    scatter,
+    axis y line*=left,
+    only marks,
+    mark options={
+      draw opacity=0.9,
+      fill opacity=0.25,
+    },
+  },
+}
+
+% \Finale
+\endinput
